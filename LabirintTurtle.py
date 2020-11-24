@@ -10,11 +10,8 @@ class LabirintTurtle:
         self.col = int(self.line[-1])
 
     def show_map(self, turtle=False):
-        if turtle:
-            f = self.line[self.row]
-            self.line[self.row] = f[:self.col] + 'A' + f[self.col + 1::]
-            for i in range(len(self.line) - 2):
-                print(self.line[i])
-        else:
-            for i in range(len(self.line) - 2):
-                 print(self.line[i])
+        for i in range(len(self.line) - 2):
+            if not turtle:
+                f = self.line[self.row]
+                self.line[self.row] = f[:self.col] + 'A' + f[self.col + 1::]
+            print(self.line[i])
