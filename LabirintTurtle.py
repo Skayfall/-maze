@@ -1,3 +1,5 @@
+from termcolor import colored
+
 class LabirintTurtle:
     def __init__(self):
         self.row = 0
@@ -14,4 +16,4 @@ class LabirintTurtle:
             if turtle:
                 f = self.line[self.row]
                 self.line[self.row] = f[:self.col] + 'A' + f[self.col + 1::]
-            print(self.line[i])
+            print(colored(self.line[i], 'magenta'))
