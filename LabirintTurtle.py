@@ -8,8 +8,6 @@ class LabirintTurtle:
         self.check_1 = False
         self.check_2 = False
         self.check_3 = False
-        self.check_4 = False
-        self.check_5 = False
 
     def load_map(self, name):
         self.field = open(name, 'r')
