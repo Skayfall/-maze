@@ -5,6 +5,7 @@ class LabirintTurtle:
         self.row = 0
         self.col = 0
         self.k = 0
+        self.check = True
         self.check_1 = False
         self.check_2 = False
         self.check_3 = False
@@ -16,11 +17,12 @@ class LabirintTurtle:
         self.col = int(self.line[-1])
 
     def show_map(self, turtle=False):
-        for i in range(len(self.line) - 2):
-            if turtle:
-                f = self.line[self.row]
-                self.line[self.row] = f[:self.col] + '\u2698' + f[self.col + 1::]
-            print(colored(self.line[i], 'magenta'))
+        if self.check:
+            for i in range(len(self.line) - 2):
+                if turtle:
+                    f = self.line[self.row]
+                    self.line[self.row] = f[:self.col] + '\u2698' + f[self.col + 1::]
+                print(colored(self.line[i], 'magenta'))
 
     def check_map(self):
         for i in self.line[:-2]:
@@ -47,6 +49,7 @@ class LabirintTurtle:
                 self.check_3 = True
 
         if not self.check_1 or not self.check_2 or not self.check_3:
+            self.check = False
             print('Карта невалидна, пожалуйста загрузите новую карту.')
 
     def exit_count_step(self):
