@@ -9,6 +9,7 @@ class LabirintTurtle:
         self.check_2 = False
         self.check_3 = False
         self.check_4 = False
+        self.check_5 = False
 
     def load_map(self, name):
         self.field = open(name, 'r')
@@ -32,8 +33,10 @@ class LabirintTurtle:
             self.check_1 = True
 
         for i in range(len(self.line) - 2):
-            if self.line[self.row][self.col] != '*':
-                    self.check_2 = True
+            if 0 < self.row < len(self.line[0]) - 1:
+                if 0 < self.col < len(self.line[0]) - 1:
+                    if self.line[self.row][self.col] != '*':
+                        self.check_2 = True
 
         for i in self.line[0][1:-1]:
             if i == ' ' and self.line[0][0] != ' ' and self.line[0][-1] != ' ':
@@ -45,9 +48,11 @@ class LabirintTurtle:
             if i[0] == ' ':
                 self.check_3 = True
 
-        if 0 < self.row < len(self.line[0]) - 1:
-            if 0 < self.col < len(self.line[0]) - 1:
-                self.check_4 = True
-
-        if not self.check_1 or not self.check_2 or not self.check_3 or not self.check_4:
+        if not self.check_1 or not self.check_2 or not self.check_3:
             print('Карта невалидна, пожалуйста загрузите новую карту.')
+
+    def exit_count_step(self):
+        pass
+
+    def exit_show_step(self):
+        pass
