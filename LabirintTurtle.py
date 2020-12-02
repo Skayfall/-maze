@@ -9,10 +9,7 @@ class LabirintTurtle:
         self.row_1 = 0
         self.comp = 4
         self.len = 0
-        #вверх comp = 1
-        #вниз comp = 2
-        #влево comp = 3
-        #вправо comp = 4
+        self.step = 0
         self.nap = []
         self.check = True
         self.check_1 = False
@@ -25,7 +22,6 @@ class LabirintTurtle:
         self.row = int(self.line[-2])
         self.col = int(self.line[-1])
         self.len = len(self.line[0])
-
 
     def show_map(self, turtle=False):
         if self.check:
@@ -63,6 +59,7 @@ class LabirintTurtle:
             for j in i:
                 if j[0] == ' ' or j[-1] == ' ':
                     self.check_3 = True
+
         if self.row_1 == 0 and self.col_1 == 0:
             self.check_3 = False
 
@@ -71,52 +68,42 @@ class LabirintTurtle:
             print('Карта невалидна, пожалуйста загрузите новую карту.')
 
     def exit_count_step(self):
-        print(self.row, self.col)
-        print(self.row_1, self.col_1)
-        print('-----------------')
+        if self.check:
+            self.exit_show_step()
+            print(len(self.nap))
+            print(*self.nap)
 
     def exit_show_step(self):
-        while self.line[self.row][self.col + 1] != '*':
-            self.col += 1
-            self.nap.append('E')
-            f = self.line[self.row]
-            self.line[self.row] = f[:self.col] + '\u2022' + f[self.col + 1::]
+        if self.check:
+            while self.line[self.row][self.col + 1] != '*':
+                self.col += 1
+                self.nap.append('E')
+                f = self.line[self.row]
+                self.line[self.row] = f[:self.col] + '\u2022' + f[self.col + 1::]
 
-        while self.row != self.row_1 and self.col != self.col_1:
-            if self.comp == 1:
-                self.up()
-                print(self.row, self.col)
-                print(self.row_1, self.col_1)
-                print('-----------------')
-            elif self.comp == 2:
-                self.down()
-                print(self.row, self.col)
-                print(self.row_1, self.col_1)
-                print('-----------------')
-            elif self.comp == 3:
-                self.left()
-                print(self.row, self.col)
-                print(self.row_1, self.col_1)
-                print('-----------------')
-            elif self.comp == 4:
-                self.right()
-                print(self.row, self.col)
-                print(self.row_1, self.col_1)
-                print('-----------------')
-        if self.row_1 == 0:
-            self.row -= 1
-            self.nap.append('N')
-            f = self.line[self.row]
-            self.line[self.row] = f[:self.col] + '\u2698' + f[self.col + 1::]
-        elif self.row_1 == len(self.line) - 2:
-            self.row += 1
-            self.nap.append('S')
-            f = self.line[self.row]
-            self.line[self.row] = f[:self.col] + '\u2698' + f[self.col + 1::]
+            while self.row != self.row_1 and self.col != self.col_1 and self.check:
+                if self.comp == 1:
+                    self.up()
+                elif self.comp == 2:
+                    self.down()
+                elif self.comp == 3:
+                    self.left()
+                elif self.comp == 4:
+                    self.right()
 
-        self.nap.remove('N')
-        self.nap.remove('E')
-        print(self.nap)
+            if self.row_1 == 0:
+                self.row -= 1
+                self.nap.append('N')
+                f = self.line[self.row]
+                self.line[self.row] = f[:self.col] + '\u2698' + f[self.col + 1::]
+            elif self.row_1 == len(self.line) - 2:
+                self.row += 1
+                self.nap.append('S')
+                f = self.line[self.row]
+                self.line[self.row] = f[:self.col] + '\u2698' + f[self.col + 1::]
+
+            self.nap.remove('N')
+            self.nap.remove('E')
 
     def up(self):
         self.comp = 1
