@@ -7,12 +7,13 @@ class LabirintTurtle:
         self.k = 0
         self.col_1 = 0
         self.row_1 = 0
-        self.comp = 1
+        self.comp = 4
         self.len = 0
         #вверх comp = 1
         #вниз comp = 2
         #влево comp = 3
         #вправо comp = 4
+        self.nap = []
         self.check = True
         self.check_1 = False
         self.check_2 = False
@@ -77,6 +78,7 @@ class LabirintTurtle:
     def exit_show_step(self):
         while self.line[self.row][self.col + 1] != '*':
             self.col += 1
+            self.nap.append('E')
             f = self.line[self.row]
             self.line[self.row] = f[:self.col] + '\u2022' + f[self.col + 1::]
 
@@ -101,6 +103,20 @@ class LabirintTurtle:
                 print(self.row, self.col)
                 print(self.row_1, self.col_1)
                 print('-----------------')
+        if self.row_1 == 0:
+            self.row -= 1
+            self.nap.append('N')
+            f = self.line[self.row]
+            self.line[self.row] = f[:self.col] + '\u2698' + f[self.col + 1::]
+        elif self.row_1 == len(self.line) - 2:
+            self.row += 1
+            self.nap.append('S')
+            f = self.line[self.row]
+            self.line[self.row] = f[:self.col] + '\u2698' + f[self.col + 1::]
+
+        self.nap.remove('N')
+        self.nap.remove('E')
+        print(self.nap)
 
     def up(self):
         self.comp = 1
@@ -110,6 +126,7 @@ class LabirintTurtle:
         elif self.line[self.row - 1][self.col + 1] == ' ':
             self.comp = 4
         self.row -= 1
+        self.nap.append('N')
         f = self.line[self.row]
         self.line[self.row] = f[:self.col] + '\u2022' + f[self.col + 1::]
 
@@ -121,6 +138,7 @@ class LabirintTurtle:
         elif self.line[self.row + 1][self.col - 1] == ' ':
             self.comp = 3
         self.row += 1
+        self.nap.append('S')
         f = self.line[self.row]
         self.line[self.row] = f[:self.col] + '\u2022' + f[self.col + 1::]
 
@@ -132,6 +150,7 @@ class LabirintTurtle:
         elif self.line[self.row - 1][self.col - 1] == ' ':
             self.comp = 1
         self.col -= 1
+        self.nap.append('W')
         f = self.line[self.row]
         self.line[self.row] = f[:self.col] + '\u2022' + f[self.col + 1::]
 
@@ -143,5 +162,6 @@ class LabirintTurtle:
         elif self.line[self.row + 1][self.col + 1] == ' ':
             self.comp = 2
         self.col += 1
+        self.nap.append('E')
         f = self.line[self.row]
         self.line[self.row] = f[:self.col] + '\u2022' + f[self.col + 1::]
