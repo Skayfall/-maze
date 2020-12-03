@@ -30,7 +30,6 @@ class LabirintTurtle:
                     f = self.line[self.row]
                     self.line[self.row] = f[:self.col] + '\u2698' + f[self.col + 1::]
                 print(colored(self.line[i], 'magenta'))
-            pass
 
     def check_map(self):
         for i in self.line[:-2]:
@@ -49,7 +48,7 @@ class LabirintTurtle:
         for i in self.line[0][1:-1]:
             if i == ' ' and self.line[0][0] != ' ' and self.line[0][-1] != ' ':
                 self.col_1 = self.line[0][1:-1].index(i) + 1
-                self.row_1 = 1
+                self.row_1 = 0
                 self.check_3 = True
         for i in self.line[:-2][-1][1:-1]:
             if i == ' ' and self.line[:-2][-1][0] != ' ' and self.line[:-2][-1][-1] != ' ':
@@ -96,7 +95,7 @@ class LabirintTurtle:
                         if self.col == self.col_1:
                             a = 1
 
-                if self.row_1 == 1:
+                if self.row_1 == 0:
                     self.row -= 1
                     self.nap.append('N')
                     f = self.line[self.row]
@@ -107,16 +106,16 @@ class LabirintTurtle:
                     f = self.line[self.row]
                     self.line[self.row] = f[:self.col] + '\u2698' + f[self.col + 1::]
 
-            if self.row_1 == len(self.line) - 3:
-                if 'N' in self.nap:
-                    self.nap.remove('N')
-                if 'W' in self.nap:
-                    self.nap.remove('W')
-                if 'S' in self.nap:
-                    self.nap.remove('S')
-            if self.row_1 == 1:
-                if 'N' in self.nap:
-                    self.nap.remove('N')
+                if self.row_1 == len(self.line) - 3:
+                    if 'N' in self.nap:
+                        self.nap.remove('N')
+                    if 'W' in self.nap:
+                        self.nap.remove('W')
+                    if 'S' in self.nap:
+                        self.nap.remove('S')
+                if self.row_1 == 0:
+                    if 'N' in self.nap:
+                        self.nap.remove('N')
 
     def up(self):
         self.comp = 1
@@ -165,3 +164,11 @@ class LabirintTurtle:
         self.nap.append('E')
         f = self.line[self.row]
         self.line[self.row] = f[:self.col] + '\u2022' + f[self.col + 1::]
+
+d = LabirintTurtle()
+d.load_map('l24.txt')
+d.check_map()
+d.show_map(turtle=True)
+d.exit_count_step()
+d.exit_show_step()
+d.show_map(turtle=True)
