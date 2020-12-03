@@ -30,6 +30,7 @@ class LabirintTurtle:
                     f = self.line[self.row]
                     self.line[self.row] = f[:self.col] + '\u2698' + f[self.col + 1::]
                 print(colored(self.line[i], 'magenta'))
+            pass
 
     def check_map(self):
         for i in self.line[:-2]:
